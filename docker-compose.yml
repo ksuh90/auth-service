@@ -1,0 +1,19 @@
+version: '2.1'
+
+services:
+
+    redis:
+        image: 'redis:latest'
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 1s
+            timeout: 3s
+            retries: 30
+
+    auth-service:
+        build: ./app
+        ports:
+            - '6010:6010'
+        depends_on:
+            redis:
+                condition: service_healthy

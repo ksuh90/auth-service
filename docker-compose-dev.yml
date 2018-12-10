@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+
+    auth-service:
+        build:
+            context: ./app
+            args:
+                NODE_ENV: dev
+        volumes:
+            - auth-service-sync:/opt/app:nocopy
+
+volumes:
+    auth-service-sync:
+        external: true
